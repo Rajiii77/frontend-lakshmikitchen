@@ -40,9 +40,11 @@ function cartReducer(state, action) {
     case 'DECREASE_QUANTITY':
       return {
         ...state,
-        items: state.items.map(item =>
-          item.id === action.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-        ),
+        items: state.items
+          .map(item =>
+            item.id === action.id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+          .filter(item => item.quantity > 0),
       };
     case 'UPDATE_QUANTITY':
       return {
@@ -74,15 +76,20 @@ export function CartProvider({ children }) {
     localStorage.setItem('cart', JSON.stringify(state.items));
   }, [state.items]);
 
-  const addItem = item => dispatch({ type: 'ADD_ITEM', item });
+  const addItem = item => dispatch({ type: 'ADD_ITEM', item: { ...item, price: Number(item.price) } });
   const removeItem = id => dispatch({ type: 'REMOVE_ITEM', id });
   const increaseQuantity = id => dispatch({ type: 'INCREASE_QUANTITY', id });
   const decreaseQuantity = id => dispatch({ type: 'DECREASE_QUANTITY', id });
   const updateQuantity = (id, quantity) => dispatch({ type: 'UPDATE_QUANTITY', id, quantity });
   const clearCart = () => dispatch({ type: 'CLEAR_CART' });
 
+  // Replace the cart with a single product (for Buy Now)
+  const replaceCart = (product) => {
+    dispatch({ type: 'LOAD_CART', items: [{ ...product, price: Number(product.price), quantity: 1 }] });
+  };
+
   return (
-    <CartContext.Provider value={{ cart: state.items, addItem, removeItem, increaseQuantity, decreaseQuantity, updateQuantity, clearCart }}>
+    <CartContext.Provider value={{ cart: state.items, addItem, removeItem, increaseQuantity, decreaseQuantity, updateQuantity, clearCart, replaceCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -3,10 +3,12 @@ import axios from 'axios';
 
 function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
   const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState({ username: '', name: '', email: '', phone_number: '', password: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [addError, setAddError] = useState(null);
   const [addSuccess, setAddSuccess] = useState(null);
   const [adding, setAdding] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [editForm, setEditForm] = useState({ ...admin });
   const [editError, setEditError] = useState(null);
@@ -52,20 +54,51 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
     const { name, value } = e.target;
     setForm(f => ({ ...f, [name]: value }));
   };
-  const handleAddAdmin = async e => {
+  
+  const handleOtpChange = e => {
+    setOtp(e.target.value);
+  };
+  
+  const handleSendOtp = async e => {
     e.preventDefault();
     setAdding(true);
     setAddError(null);
     setAddSuccess(null);
     try {
-      await axios.post('/api/admin/add', form);
-      setAddSuccess('Admin added successfully!');
-      setForm({ username: '', name: '', email: '', phone_number: '', password: '' });
+      const response = await axios.post('/api/admin/send-otp', form);
+      setOtpSent(true);
+      setAddSuccess(response.data.message || 'OTP sent successfully!');
+      if (response.data.developmentMode && response.data.otp) {
+        console.log('Development OTP:', response.data.otp);
+      }
     } catch (err) {
-      setAddError(err.response?.data?.error || 'Failed to add admin');
+      setAddError(err.response?.data?.error || 'Failed to send OTP');
     } finally {
       setAdding(false);
     }
+  };
+  
+  const handleVerifyOtp = async e => {
+    e.preventDefault();
+    setAdding(true);
+    setAddError(null);
+    setAddSuccess(null);
+    try {
+      await axios.post('/api/admin/verify-otp', { email: form.email, otp });
+      setAddSuccess('Admin added successfully!');
+      setForm({ username: '', email: '', password: '' });
+      setOtp('');
+      setOtpSent(false);
+    } catch (err) {
+      setAddError(err.response?.data?.error || 'Failed to verify OTP');
+    } finally {
+      setAdding(false);
+    }
+  };
+  
+  const handleAddAdmin = async e => {
+    e.preventDefault();
+    handleSendOtp(e);
   };
 
   // Handle edit profile
@@ -120,14 +153,9 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
               <div className="mb-2">
                 <input className="form-control" name="username" placeholder="Username" value={editForm.username || ''} onChange={handleEditChange} required />
               </div>
-              <div className="mb-2">
-                <input className="form-control" name="name" placeholder="Name" value={editForm.name || ''} onChange={handleEditChange} required />
-              </div>
+
               <div className="mb-2">
                 <input className="form-control" name="email" type="email" placeholder="Email" value={editForm.email || ''} onChange={handleEditChange} required />
-              </div>
-              <div className="mb-2">
-                <input className="form-control" name="phone_number" placeholder="Phone" value={editForm.phone_number || ''} onChange={handleEditChange} required />
               </div>
               {editError && <div className="alert alert-danger py-1 my-2">{editError}</div>}
               {editSuccess && <div className="alert alert-success py-1 my-2">{editSuccess}</div>}
@@ -138,12 +166,6 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
             </form>
           ) : (
             <>
-              {admin.name && (
-                <div className="mb-3 d-flex align-items-center">
-                  <span className="bi bi-person-badge me-2" style={{ color: '#b85c38', fontSize: 20 }}></span>
-                  <span>{admin.name}</span>
-                </div>
-              )}
               <div className="mb-3 d-flex align-items-center">
                 <span className="bi bi-person me-2" style={{ color: '#b85c38', fontSize: 20 }}></span>
                 <span className="fw-semibold">{admin.username}</span>
@@ -152,12 +174,6 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
                 <span className="bi bi-envelope me-2" style={{ color: '#b85c38', fontSize: 20 }}></span>
                 <span>{admin.email}</span>
               </div>
-              {admin.phone_number && (
-                <div className="mb-3 d-flex align-items-center">
-                  <span className="bi bi-telephone me-2" style={{ color: '#b85c38', fontSize: 20 }}></span>
-                  <span>{admin.phone_number}</span>
-                </div>
-              )}
               <button className="btn btn-outline-primary rounded-pill w-100 fw-semibold shadow-sm mb-2" style={{ fontSize: 16 }} onClick={() => { setEditForm({ ...admin }); setEditMode(true); }}>Edit Profile</button>
             </>
           )}
@@ -173,27 +189,68 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
         </div>
         {showAdd && (
           <div className="px-4 mb-3">
-            <form onSubmit={handleAddAdmin} className="border rounded p-3 bg-white shadow-sm">
-              <h6 className="fw-bold mb-2">Add New Admin</h6>
-              <div className="mb-2">
-                <input className="form-control" name="username" placeholder="Username" value={form.username} onChange={handleAddChange} required />
-              </div>
-              <div className="mb-2">
-                <input className="form-control" name="name" placeholder="Name" value={form.name} onChange={handleAddChange} required />
-              </div>
-              <div className="mb-2">
-                <input className="form-control" name="email" type="email" placeholder="Email" value={form.email} onChange={handleAddChange} required />
-              </div>
-              <div className="mb-2">
-                <input className="form-control" name="phone_number" placeholder="Phone" value={form.phone_number} onChange={handleAddChange} required />
-              </div>
-              <div className="mb-2">
-                <input className="form-control" name="password" type="password" placeholder="Password" value={form.password} onChange={handleAddChange} required />
-              </div>
-              {addError && <div className="alert alert-danger py-1 my-2">{addError}</div>}
-              {addSuccess && <div className="alert alert-success py-1 my-2">{addSuccess}</div>}
-              <button className="btn btn-success w-100 rounded-pill" type="submit" disabled={adding}>{adding ? 'Adding...' : 'Add Admin'}</button>
-            </form>
+            {!otpSent ? (
+              <form onSubmit={handleAddAdmin} className="border rounded p-3 bg-white shadow-sm">
+                <h6 className="fw-bold mb-2">Add New Admin</h6>
+                <div className="mb-2">
+                  <input className="form-control" name="username" placeholder="Username" value={form.username} onChange={handleAddChange} required />
+                </div>
+                <div className="mb-2">
+                  <input className="form-control" name="email" type="email" placeholder="Email" value={form.email} onChange={handleAddChange} required />
+                </div>
+                <div className="mb-2">
+                  <input className="form-control" name="password" type="password" placeholder="Password" value={form.password} onChange={handleAddChange} required />
+                </div>
+                {addError && <div className="alert alert-danger py-1 my-2">{addError}</div>}
+                {addSuccess && <div className="alert alert-success py-1 my-2">{addSuccess}</div>}
+                <button className="btn btn-success w-100 rounded-pill" type="submit" disabled={adding}>{adding ? 'Sending OTP...' : 'Send OTP'}</button>
+              </form>
+            ) : (
+              <form onSubmit={handleVerifyOtp} className="border rounded p-3 bg-white shadow-sm">
+                <h6 className="fw-bold mb-2">Verify OTP</h6>
+                <p className="small text-muted">An OTP has been sent to {form.email}</p>
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    placeholder="Enter OTP" 
+                    value={otp} 
+                    onChange={handleOtpChange} 
+                    required 
+                    maxLength="6" 
+                    pattern="[0-9]{6}" 
+                    title="Please enter a 6-digit OTP"
+                  />
+                </div>
+                {addError && <div className="alert alert-danger py-1 my-2">{addError}</div>}
+                {addSuccess && <div className="alert alert-success py-1 my-2">{addSuccess}</div>}
+                <div className="d-flex gap-2">
+                  <button 
+                    type="button" 
+                    className="btn btn-outline-secondary rounded-pill flex-grow-1" 
+                    onClick={() => setOtpSent(false)}
+                  >
+                    Back
+                  </button>
+                  <button 
+                    className="btn btn-success rounded-pill flex-grow-1" 
+                    type="submit" 
+                    disabled={adding}
+                  >
+                    {adding ? 'Verifying...' : 'Verify OTP'}
+                  </button>
+                </div>
+                <div className="mt-2 text-center">
+                  <button 
+                    type="button" 
+                    className="btn btn-link btn-sm text-decoration-none" 
+                    onClick={handleSendOtp}
+                    disabled={adding}
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
         <div className="px-4 mt-2 mb-3">
@@ -210,4 +267,4 @@ function AdminProfileDrawer({ show, onClose, admin, onLogout }) {
   );
 }
 
-export default AdminProfileDrawer; 
+export default AdminProfileDrawer;

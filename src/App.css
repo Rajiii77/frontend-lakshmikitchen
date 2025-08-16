@@ -36,3 +36,537 @@
     transform: rotate(360deg);
   }
 }
+
+.todays-deal-box {
+  max-width: 600px;
+  min-height: 56px;
+  font-size: 20px;
+  color: #444;
+  font-weight: 500;
+  text-align: center;
+  border: 1.5px solid #e0e0e0;
+  background: #fafbfc;
+  font-family: 'Segoe UI', sans-serif;
+}
+@media (max-width: 600px) {
+  .todays-deal-box {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .checkout-mobile-container {
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(120deg, #fff8f0 60%, #f7c873 100%);
+    padding-bottom: 120px;
+  }
+  .checkout-card {
+    max-width: 98vw !important;
+    margin-top: -300px !important;
+    margin-bottom: 24px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(60,60,60,0.10);
+  }
+  .card.p-4.shadow {
+    margin-top: -300px !important;
+    margin-bottom: 24px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .login-container {
+    margin-top: -300px !important;
+  }
+  .container {
+    margin-top: 0 !important;
+  }
+  .checkout-step1-form,
+  .checkout-step2-form {
+    padding-bottom: 60px;
+  }
+  .checkout-bottom-btn {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 0;
+    z-index: 1100;
+    font-size: 18px;
+    padding: 16px 0;
+    box-shadow: 0 -2px 16px rgba(60,60,60,0.10);
+  }
+  .cart-bar-mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    background: #fff;
+    box-shadow: 0 -2px 16px rgba(60,60,60,0.10);
+    z-index: 1050;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    min-height: 64px;
+    max-height: 90px;
+  }
+  .cart-bar-list {
+    flex-wrap: wrap !important;
+    justify-content: flex-start;
+    gap: 6px !important;
+    overflow-x: visible !important;
+    padding-bottom: 0 !important;
+  }
+  .cart-bar-item {
+    min-width: 80px;
+    max-width: 100px;
+    font-size: 12px;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    padding: 2px 4px;
+    margin: 0;
+  }
+  .cart-bar-item img {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px;
+    margin-right: 4px;
+  }
+  .menu-card-mobile {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.25rem !important;
+    min-height: 180px;
+    box-sizing: border-box;
+  }
+  .menu-card-mobile .card-body {
+    padding: 0.5rem !important;
+  }
+  .menu-card-mobile img {
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 auto 0.5rem auto;
+    display: block;
+  }
+  .cart-item-mobile {
+    padding: 6px 4px !important;
+    font-size: 13px;
+    gap: 4px;
+  }
+  .cart-item-mobile img {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 7px;
+    margin-right: 6px;
+  }
+  .cart-item-mobile .fw-semibold {
+    font-size: 13px !important;
+    max-width: 80px;
+  }
+  .cart-item-mobile .text-muted {
+    font-size: 12px !important;
+  }
+  .cart-item-mobile .fw-bold {
+    font-size: 13px !important;
+    min-width: 30px;
+  }
+  .cart-item-mobile button {
+    font-size: 12px !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    padding: 0 4px !important;
+  }
+}
+@media (min-width: 577px) {
+  .cart-bar-mobile {
+    display: none !important;
+  }
+}
+
+/* Desktop cart bar: hidden on mobile, visible on desktop */
+.cart-bar-desktop {
+  display: none;
+}
+@media (min-width: 577px) {
+  .cart-bar-desktop {
+    display: flex !important;
+  }
+}
+@media (max-width: 576px) {
+  .cart-bar-desktop {
+    display: none !important;
+  }
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #198754 !important;
+    z-index: 1050;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .navbar-collapse.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .navbar-nav {
+    padding: 1rem 0;
+    background: #198754;
+  }
+  
+  .navbar-nav .nav-item {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: #198754;
+  }
+  
+  .navbar-nav .nav-item:last-child {
+    border-bottom: none;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 1rem 1.5rem;
+    color: white !important;
+    font-weight: 500;
+    cursor: pointer;
+    background: #198754;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: rgba(255,255,255,0.1) !important;
+  }
+  
+  .navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  /* Ensure cart icon is properly styled in mobile menu */
+  .navbar-nav .nav-item:first-child {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  /* Add smooth transition for mobile menu */
+  .navbar-collapse {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Ensure proper spacing for mobile menu items */
+  .navbar-nav .nav-item .nav-link {
+    height: auto !important;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  /* Style for profile buttons in mobile menu */
+  .navbar-nav .nav-item button.btn-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 1rem 1.5rem;
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+    background: #198754;
+  }
+  
+  .navbar-nav .nav-item button.btn-link:hover {
+    background: rgba(255,255,255,0.1) !important;
+  }
+  
+  /* Ensure navbar has proper z-index */
+  .navbar {
+    z-index: 1051;
+  }
+}
+
+/* Additional Mobile Navigation Improvements */
+@media (max-width: 767px) {
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .navbar-brand img {
+    height: 32px !important;
+    width: 32px !important;
+  }
+  
+  .navbar-toggler {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .navbar-collapse {
+    top: 56px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  
+  .navbar-brand img {
+    height: 28px !important;
+    width: 28px !important;
+  }
+  
+  .navbar-collapse {
+    top: 52px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Ensure proper touch targets for mobile */
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link,
+  .navbar-nav .nav-item button {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  .navbar-toggler {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+}
+
+/* Admin Dashboard Side Navbar - Professional Lakshmi's Kitchen Theme */
+.admin-side-navbar {
+  background: #f1bd5d;
+  box-shadow: 0 2px 12px rgba(60,60,60,0.07);
+  border-radius: 0 18px 18px 0;
+  min-height: 100vh;
+  padding: 0;
+  z-index: 1000;
+}
+.admin-side-navbar .nav-item {
+  font-size: 1.1rem;
+  color: #fff;
+  padding: 14px 0;
+  border-left: 4px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  background: transparent;
+}
+.admin-side-navbar .nav-item.active,
+.admin-side-navbar .nav-item:hover {
+  color: #b85c38;
+  background: #fff8f0;
+  border-left: 4px solid #f7c873;
+  font-weight: 600;
+}
+.admin-side-navbar .nav-item span {
+  color: inherit;
+}
+.admin-side-navbar .fw-bold {
+  color: #fff8f0 !important;
+}
+.admin-side-navbar .text-muted {
+  color: #f7c873 !important;
+}
+@media (max-width: 767px) {
+  .admin-side-navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80vw;
+    max-width: 320px;
+    min-height: 100vh;
+    z-index: 2000;
+    border-radius: 0 18px 18px 0;
+    box-shadow: 2px 0 16px rgba(60,60,60,0.10);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    overflow-y: auto;
+    background: #f1bd5d !important;
+  }
+  .admin-side-navbar.open {
+    transform: translateX(0);
+  }
+}
+@media (max-width: 767px) {
+  .admin-dashboard-main {
+    padding: 16px 8px 32px 8px;
+  }
+}
+@media (min-width: 768px) {
+  .admin-dashboard-main {
+    padding: 32px 32px 48px 32px;
+  }
+}
+
+/* Admin Dashboard Responsive Tables */
+.admin-dashboard-main {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.admin-dashboard-main .card {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.admin-dashboard-main .table-responsive {
+  overflow-x: auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.admin-dashboard-main table {
+  min-width: 800px;
+  font-size: 0.875rem;
+}
+
+.admin-dashboard-main th,
+.admin-dashboard-main td {
+  white-space: nowrap;
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
+}
+
+.admin-dashboard-main th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.admin-dashboard-main td {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Mobile responsive table styles */
+@media (max-width: 768px) {
+  .admin-dashboard-main .card {
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .admin-dashboard-main .table-responsive {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .admin-dashboard-main table {
+    min-width: 600px;
+    font-size: 0.8rem;
+  }
+  
+  .admin-dashboard-main th,
+  .admin-dashboard-main td {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .admin-dashboard-main .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-dashboard-main .card {
+    margin: 0.25rem;
+    padding: 0.75rem;
+  }
+  
+  .admin-dashboard-main table {
+    min-width: 500px;
+    font-size: 0.75rem;
+  }
+  
+  .admin-dashboard-main th,
+  .admin-dashboard-main td {
+    padding: 0.3rem 0.4rem;
+  }
+  
+  .admin-dashboard-main .badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  /* Hide less important columns on very small screens */
+  .admin-dashboard-main .d-none-mobile {
+    display: none !important;
+  }
+}
+
+/* Table header sticky positioning */
+.admin-dashboard-main .table-responsive {
+  position: relative;
+}
+
+.admin-dashboard-main thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f8f9fa;
+}
+
+/* Hover effects for better UX */
+.admin-dashboard-main tbody tr:hover {
+  background-color: rgba(0,0,0,0.02);
+}
+
+/* Compact table for better mobile experience */
+.admin-dashboard-main .table-sm th,
+.admin-dashboard-main .table-sm td {
+  padding: 0.3rem 0.5rem;
+}
+
+/* Ensure proper spacing in admin dashboard */
+.admin-dashboard-main .row {
+  margin: 0;
+}
+
+.admin-dashboard-main .col-md-9,
+.admin-dashboard-main .col-lg-10 {
+  padding: 1rem;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 767px) {
+  .admin-dashboard-main .col-md-9,
+  .admin-dashboard-main .col-lg-10 {
+    padding: 0.5rem;
+  }
+}
